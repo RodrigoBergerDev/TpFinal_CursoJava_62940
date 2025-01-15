@@ -35,7 +35,10 @@ public class ProductoService {
 		Producto producto = productoRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
 		producto.setNombre(productoDetails.getNombre());
+		producto.setStock(productoDetails.getStock());
+		producto.setPrecio(productoDetails.getPrecio());
 		return productoRepository.save(producto);
+		
 
 	}
 
