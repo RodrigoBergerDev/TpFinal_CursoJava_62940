@@ -1,4 +1,13 @@
-C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\dao\DaoFactory.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\controllers\CategoriaController.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\controllers\ClienteController.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\controllers\ProductoController.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\models\Categoria.java
 C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\models\Cliente.java
 C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\models\Producto.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\repositories\CategoriaRepository.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\repositories\ClienteRepository.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\repositories\ProductoRepository.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\services\CategoriaService.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\services\ClienteService.java
+C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\services\ProductoService.java
 C:\Users\Administrador\eclipse-workspace\Curso_CoderHouse\CursoJava\TrabajoFinal\src\main\java\com\coderhouse\TrabajoFinalApplication.java

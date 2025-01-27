@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.coderhouse.dtos.VentaDTO;
 import com.coderhouse.models.Cliente;
 import com.coderhouse.services.ClienteService;
 
@@ -59,7 +60,7 @@ public class ClienteController {
 		}
 	    
 	    @PutMapping("/{id}")
-		public ResponseEntity<Cliente> updateAlumnoById(@PathVariable Long id, @RequestBody Cliente clienteModificado) {
+		public ResponseEntity<Cliente> updateClienteById(@PathVariable Long id, @RequestBody Cliente clienteModificado) {
 			try {
 				Cliente updateCliente = clienteService.updateClienteById(id, clienteModificado);
 				return ResponseEntity.ok(updateCliente);
@@ -84,5 +85,18 @@ public class ClienteController {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
 			}
 		}
+	    
+	    @PostMapping("/ventas")
+	    public ResponseEntity<Cliente> venderProductoACliente(@RequestBody VentaDTO dto) {
+	    	try {
+	    		Cliente cliente = clienteService.venderProductoACliente(dto);
+	    		return ResponseEntity.ok(cliente);
+	    	} catch (IllegalArgumentException e) {
+				return ResponseEntity.notFound().build(); // 404
+
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
+			}
+	    }
 	    
 }

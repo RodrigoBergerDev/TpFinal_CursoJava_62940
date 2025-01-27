@@ -15,6 +15,17 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 
 @Entity
 @Table(name = "Productos")
@@ -40,71 +51,5 @@ public class Producto {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Categoria categoria;
-
-	public Producto() {
-		super();
-	}
-
-	public Producto(String nombre, int stock, double precio) {
-		this();
-		this.nombre = nombre;
-		this.stock = stock;
-		this.precio = precio;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public List<Cliente> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
 	
-	
-	
-	public int getStock() {
-		return stock;
-	}
-
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
-	@Override
-	public String toString() {
-		return "Curso [id=" + id + ", nombre=" + nombre + ", clientes=" + clientes + "]";
-	}
-
 }
