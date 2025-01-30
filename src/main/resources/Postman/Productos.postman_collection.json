@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/productos",
+					"raw": "http://localhost:8080/api/producto",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,7 +20,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"productos"
+						"producto"
 					]
 				}
 			},
@@ -54,7 +54,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"nombre\": \"Bombilla\",\r\n        \"stock\": 5,\r\n        \"precio\": 15000.0\r\n}",
+					"raw": "{\r\n        \"nombre\": \"PenDrive\",\r\n        \"descripcion\": \"32Gbs\",\r\n        \"precio\": 10000,\r\n        \"stock\": 10\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -62,7 +62,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/productos",
+					"raw": "http://localhost:8080/api/producto",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -70,7 +70,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"productos"
+						"producto"
 					]
 				}
 			},
@@ -82,7 +82,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/productos/2",
+					"raw": "http://localhost:8080/api/producto/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -90,8 +90,8 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"productos",
-						"2"
+						"producto",
+						"6"
 					]
 				}
 			},
@@ -104,7 +104,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"nombre\": \"Matera\",\r\n        \"stock\": 2,\r\n        \"precio\": 7000.0\r\n}",
+					"raw": "{\r\n        \r\n        \"nombre\": \"Mouse\",\r\n        \"descripcion\": \"Con-Cable\",\r\n        \"precio\": 25000,\r\n        \"stock\": 75\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -112,7 +112,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/productos/4",
+					"raw": "http://localhost:8080/api/producto/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -120,8 +120,38 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"productos",
-						"4"
+						"producto",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asignar Categoria a Producto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productoId\": 7,\r\n  \"categoriaId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/producto/asignar-categoria",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"producto",
+						"asignar-categoria"
 					]
 				}
 			},

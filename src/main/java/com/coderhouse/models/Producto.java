@@ -1,55 +1,49 @@
 package com.coderhouse.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
+/**
+ * Representa un producto disponible en el sistema de e-commerce.
+ */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-
 @Entity
-@Table(name = "Productos")
+@Table(name = "productos")
+@Schema(description = "Modelo de Producto", title = "Modelo de Producto")
 public class Producto {
 
-	@Id // Primary Key
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Autoincremental
+    private long id;
 
-	private String nombre;
-	
-	private int stock;
-	
-	private double precio;
+    private String nombre;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "Ventas", 
-			joinColumns = @JoinColumn(name = "producto_id"), 
-			inverseJoinColumns = @JoinColumn(name = "cliente_id"))
-	@JsonIgnore
-	private List<Cliente> clientes = new ArrayList<>();
+    private String descripcion;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Categoria categoria;
-	
+    private double precio;
+
+    private int stock;
+
+   @ManyToMany(fetch = FetchType.EAGER)
+   @JoinTable(
+          name = "producto_cliente",
+     joinColumns = @JoinColumn(name = "producto_id"),
+     inverseJoinColumns = @JoinColumn(name = "cliente_id")
+     )
+
+    @JsonIgnore
+    private List<Cliente> clientes = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Categoria categoria;
+
 }

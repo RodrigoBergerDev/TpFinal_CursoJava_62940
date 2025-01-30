@@ -1,102 +1,121 @@
 package com.coderhouse.controllers;
 
-import java.util.List;
-
+import com.coderhouse.models.Cliente;
+import com.coderhouse.services.ClienteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.*;
 
-import com.coderhouse.dtos.VentaDTO;
-import com.coderhouse.models.Cliente;
-import com.coderhouse.services.ClienteService;
+import java.util.List;
 
+@Tag(name ="Cliente", description = "Cliente Management System")
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/api/cliente")
 public class ClienteController {
-	
-	    @Autowired
-	    private ClienteService clienteService;
-		
-	    @GetMapping
-		public ResponseEntity<List<Cliente>> getAllCliente() {
-			try {
-				List<Cliente> clientes = clienteService.getAllClientes();
-				return ResponseEntity.ok(clientes); // 200
-			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
-			}
 
-		}
-		
-	    @GetMapping("/{id}")
-		public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
-			try {
-				Cliente cliente = clienteService.findById(id);
-				return ResponseEntity.ok(cliente); // 200
-			} catch (IllegalArgumentException e) {
-				return ResponseEntity.notFound().build(); // 404
-			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
-			}
-		}
-			
-			
-	    @PostMapping
-		public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
-			try {
-				Cliente clienteCreado = clienteService.saveCliente(cliente);
-				return ResponseEntity.status(HttpStatus.CREATED).body(clienteCreado); // 201 Created
-			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
-			}
-		}
-	    
-	    @PutMapping("/{id}")
-		public ResponseEntity<Cliente> updateClienteById(@PathVariable Long id, @RequestBody Cliente clienteModificado) {
-			try {
-				Cliente updateCliente = clienteService.updateClienteById(id, clienteModificado);
-				return ResponseEntity.ok(updateCliente);
-			} catch (IllegalArgumentException e) {
-				return ResponseEntity.notFound().build(); // 404
-			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
-			}
+    @Autowired
+    private ClienteService clienteService;
 
-		}
-	    
-	    @DeleteMapping("/{id}")
-		public ResponseEntity<Void> deleteClienteById(@PathVariable Long id) {
-			try {
-				clienteService.deleteClienteById(id);
-				return ResponseEntity.noContent().build(); // 204
+    @Operation(summary = "Get all clientes", description = "Permite listar todos los clientes")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "400", description = "Parámetros incorrectos",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))}
+            )})
+    @GetMapping
+    public ResponseEntity<List<Cliente>> getAllClientes(){
+        try {
+            List<Cliente> clientes = clienteService.getAllClientes();
+            return ResponseEntity.ok(clientes);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
-			} catch (IllegalArgumentException e) {
-				return ResponseEntity.notFound().build(); // 404
+    @Operation(summary = "Get Cliente By ID", description = "Permite traer un cliente por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "400", description = "Parámetros incorrectos",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))}
+            )})
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> getClienteById(@PathVariable Long id){
+        try {
+            Cliente cliente = clienteService.getClienteById(id);
+            return ResponseEntity.ok(cliente);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
-			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
-			}
-		}
-	    
-	    @PostMapping("/ventas")
-	    public ResponseEntity<Cliente> venderProductoACliente(@RequestBody VentaDTO dto) {
-	    	try {
-	    		Cliente cliente = clienteService.venderProductoACliente(dto);
-	    		return ResponseEntity.ok(cliente);
-	    	} catch (IllegalArgumentException e) {
-				return ResponseEntity.notFound().build(); // 404
+    @Operation(summary = "Create Cliente", description = "Permite crear un cliente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "400", description = "Parámetros incorrectos",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))}
+            )})
+    @PostMapping
+    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente){
+        try {
+            Cliente createdCliente = clienteService.saveCliente(cliente);
+            return ResponseEntity.ok(createdCliente);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
-			} catch (Exception e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
-			}
-	    }
-	    
+    @Operation(summary = "Update Cliente", description = "Permite actualizar un cliente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "400", description = "Parámetros incorrectos",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))}
+            )})
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> updateClienteById(@PathVariable Long id, @RequestBody Cliente clienteDetails){
+        try {
+            Cliente cliente = clienteService.updateClienteById(id, clienteDetails);
+            return ResponseEntity.ok(cliente);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Operation(summary = "Delete Cliente By ID", description = "Permite eliminar un cliente por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operación exitosa"),
+            @ApiResponse(responseCode = "400", description = "Parámetros incorrectos",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))}
+            )})
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteClienteById(@PathVariable Long id){
+        try {
+            clienteService.deleteClienteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
